@@ -30,8 +30,8 @@ const Home = () => {
         <Fragment>
           <Metadata title="Home Page" />
           <div className="banner">
-            <p>Welcome to Eshopperz</p>
-            <h1>The Next Generation OF Eshopperz</h1>
+            <p>Welcome to Shopvivo</p>
+            <h1>The Next Generation OF Shopvivo</h1>
 
             <a href="#container">
               <button>
