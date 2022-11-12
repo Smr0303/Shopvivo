@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect} from "react";
+import React, { Fragment, useEffect } from "react";
 import { CgMouse } from "react-icons/all";
 import "./Home.css";
 import Product from "./ProductCard";
@@ -9,18 +9,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
 
 const Home = () => {
-    const alert = useAlert();
-    const dispatch = useDispatch();
-    const { loading, error, products } = useSelector((state) => state.products);
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  const { loading, error, products } = useSelector((state) => state.products);
 
-    useEffect(() => {
-      if (error) {
-        alert.error(error);
-        dispatch(clearErrors);
-      }
-      dispatch(getProduct());
-    }, [dispatch, error, alert]);
-    
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors);
+    }
+    dispatch(getProduct());
+  }, [dispatch, error, alert]);
+
 
   return (
     <Fragment>
