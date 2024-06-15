@@ -1,116 +1,93 @@
-import React, { Fragment, useEffect } from "react";
-import "./MyOrders.css";
-import { DataGrid } from "@material-ui/data-grid";
-import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, myOrders } from "../../Actions/orderAction";
-import Loader from "../layout/Loader/loader";
-import { Link } from "react-router-dom";
-import { useAlert } from "react-alert";
-import Typography from "@material-ui/core/Typography";
-import MetaData from "../layout/metadata";
-import LaunchIcon from "@material-ui/icons/Launch";
+import React,{Fragment,useEffect} from 'react'
+import { DataGrid } from '@mui/x-data-grid';
+import "./myOrders.css"
+import {useSelector,useDispatch} from "react-redux"
+import { clearErrors,myOrders} from "../../actions/orderAction"
+import Loader from "../layout/loader/Loader"
+import {Link } from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Typography } from '@mui/material';
+import MetaData from "../layout/MetaData"
+import LaunchIcon from '@mui/icons-material/Launch';
 
 const MyOrders = () => {
-  const dispatch = useDispatch();
-  const alert = useAlert();
-  const { loading, error, orders } = useSelector((state) => state.myOrders);
-  const { user } = useSelector((state) => state.user);
 
-  //Model of column which contain objects describing how data will be shown.
-  const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
 
-    {
-      field: "status",
-      headerName: "Status",
-      minWidth: 150,
-      flex: 0.5,
-      //cellClassName use to set class according to some condition
-      //getValue with id here will give id of that particular order and then we can access any
-      //info of that order.
-      cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
-      },
-    },
-    {
-      field: "itemsQty",
-      headerName: "Items Qty",
-      type: "number",
-      minWidth: 150,
-      flex: 0.3,
-    },
+    const dispatch=useDispatch();
+    
+    const {loading,error,orders} = useSelector(state=> state.myOrders)
+    const {user} = useSelector(state => state.user)
 
-    {
-      field: "amount",
-      headerName: "Amount",
-      type: "number",
-      minWidth: 270,
-      flex: 0.5,
-    },
+    const columns=[
+        {field:"id",headerName:"Order ID",minWidth:300,flex:1},
+        {field:"status",headerName:"Status",minWidth:150,flex:0.5,
+        cellClassName:(params)=>{
+            return (params.getValue(params.id,"status")==="Delivered"
+            ?"greenColor"
+            :"redColor")
+        }},
+        {field:"itemsQty",headerName:"Items Qty",type:"number",minWidth:150,flex:0.3},
+        {field:"amount",headerName:"Amount",type:"number",minWidth:150,flex:0.5},
+        {field:"actions",
+        headerName:"Actions",
+        type:"number",
+        minWidth:150,
+        flex:0.3,
+        sortable:false,
+        renderCell : (params)=>{
+            return(
+                <Link to={`/order/${params.getValue(params.id,"id")}`}>
+                    <LaunchIcon/>
+                </Link>
+            );
+        }}
+    ];
+    const rows=[];
 
-    {
-      field: "actions",
-      flex: 0.3,
-      headerName: "Actions",
-      minWidth: 150,
-      type: "number",
-      sortable: false,
-      renderCell: (params) => {
-        return (
-          <Link to={`/order/${params.getValue(params.id, "id")}`}>
-            <LaunchIcon />
-          </Link>
-        );
-      },
-    },
-  ];
+    orders&&
+    orders.forEach((item,index)=>{
+        rows.push({
+            itemsQty:item.orderItems.length,
+            id:item._id,
+            status:item.orderStatus,
+            amount:item.totalPrice
+        })
+    })
 
-  //Row Model
-  const rows = [];
+    useEffect(()=>{
 
-  //Pushing all order values in Row
-  orders &&
-    orders.forEach((item, index) => {
-      rows.push({
-        itemsQty: item.orderItems.length,
-        id: item._id,
-        status: item.orderStatus,
-        amount: item.totalPrice,
-      });
-    });
+        if(error){
+            toast.error(error);
+            dispatch(clearErrors());
+        }
+        dispatch(myOrders());
+    },[dispatch,toast,error])
 
-  useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
-
-    dispatch(myOrders());
-  }, [dispatch, alert, error]);
   return (
     <Fragment>
-      <MetaData title={`${user.name} - Orders`} />
+        <ToastContainer autoClose={3000}/>
+        <MetaData title={`${user.name} - Orders`}/>
 
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="myOrdersPage">
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            className="myOrdersTable"
-            autoHeight
-          />
+        {loading ? (
+            <Loader/>
+        ): (
+            <div className="myOrdersPage">
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    pageSize={10}
+                    disableSelectionOnClick
+                    className='myOrdersTable'
+                    autoHeight
+                />
+                <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
+            </div>
+        )
 
-          <Typography id="myOrdersHeading">{user.name}'s Orders</Typography>
-        </div>
-      )}
+        }
     </Fragment>
-  );
-};
+  )
+}
 
-export default MyOrders;
+export default MyOrders

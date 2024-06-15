@@ -1,57 +1,65 @@
-import React, { Fragment, useEffect } from "react";
-import { CgMouse } from "react-icons/all";
-import "./Home.css";
-import Product from "./ProductCard";
-import Metadata from "../layout/metadata";
-import Loader from "../layout/Loader/loader";
-import { clearErrors, getProduct } from "../../Actions/productAction";
-import { useSelector, useDispatch } from "react-redux";
-import { useAlert } from "react-alert";
+import React, { Fragment, useEffect } from 'react'
+import "./Home.css"
+import { CgMouse } from "react-icons/cg"
+import Product from "./ProductCard"
+import MetaData from "../layout/MetaData"
+import { getProduct } from "../../actions/productAction"
+import { useSelector, useDispatch } from "react-redux"
+import Loader from '../layout/loader/Loader'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const Home = () => {
-  const alert = useAlert();
-  const dispatch = useDispatch();
-  const { loading, error, products } = useSelector((state) => state.products);
 
-  useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors);
-    }
-    dispatch(getProduct());
-  }, [dispatch, error, alert]);
+    
+    const dispatch = useDispatch();
+    const { loading, error, products, productsCount } = useSelector(state => state.products)
+
+    useEffect(() => {
 
 
-  return (
-    <Fragment>
-      {loading ? (
-        <Loader />
-      ) : (
+        if (error) {
+            return toast.error(error);
+        }
+        dispatch(getProduct());
+        // console.log("child useEffect");
+    }, [dispatch, error, toast])
+
+
+
+    return (
         <Fragment>
-          <Metadata title="Home Page" />
-          <div className="banner">
-            <p>Welcome to Shopvivo</p>
-            <h1>The Next Generation OF Shopvivo</h1>
+            <ToastContainer autoClose={3000}/>
+            {loading ? <Loader /> : <Fragment>
 
-            <a href="#container">
-              <button>
-                Scroll <CgMouse />
-              </button>
-            </a>
-          </div>
+                <MetaData title="CraB-CarT" />
 
-          <h2 className="homeHeading">Featured Products</h2>
+                <div className="banner">
+                    <p>Welcome to CrabCart </p>
+                    <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
-          <div className="container" id="container">
-            {products &&
-              products.map((product) => (
-                <Product key={product._id} product={product} />
-              ))}
-          </div>
+                    <a href="#heading">
+                        <button>
+                            Scroll <CgMouse />
+                        </button>
+                    </a>
+                </div>
+
+                <div id="heading" className='homeHeadingdiv'>
+                    <h2  className="homeHeading">Featured</h2>
+                    <h2 className='homeHeading'>Products...</h2>
+                </div>
+
+                <div className="container" id="container">
+                    {products && products.map(product => (
+                        <Product product={product} />
+                    ))}
+                </div>
+            </Fragment>}
         </Fragment>
-      )}
-    </Fragment>
-  );
-};
+    )
+}
 
-export default Home;
+export default Home

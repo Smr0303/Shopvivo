@@ -1,10 +1,8 @@
-const express = require("express");
+const express=require('express');
+const { processPayment, sendStripeApiKey } = require("../controllers/paymentController");
 const router = express.Router();
-const { processPaymnet, sendStripeApiKey } = require("../controllers/payment");
-const { isAuthenticatedUser} = require("../Middlewares/auth");
+const {isAuthenticatedUser} = require("../middleware/auth")
 
-router.route("/payment/process").post(isAuthenticatedUser,processPaymnet);
-router.route("/stripeapikey").get(isAuthenticatedUser, sendStripeApiKey);
-
-
-module.exports = router;
+router.route("/payment/process").post(isAuthenticatedUser,processPayment)
+router.route("/stripeapikey").get(isAuthenticatedUser,sendStripeApiKey);
+module.exports=router;

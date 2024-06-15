@@ -1,136 +1,134 @@
-import React, { Fragment, useEffect, useState } from "react";
-import "./NewProduct.css"
-import { useSelector, useDispatch } from "react-redux";
-import { useAlert } from "react-alert";
-import { Button } from "@material-ui/core";
-import MetaData from "../layout/metadata";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import PersonIcon from "@material-ui/icons/Person";
-import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
-import SideBar from "./Sidebar";
-import { UPDATE_USER_RESET } from "../../Constants/userConstants";
-import {
-  userDetails,
-  updateUser,
-  clearErrors,
-} from "../../Actions/userAction";
-import Loader from "../layout/Loader/loader";
+import React,{Fragment,useEffect,useState} from 'react'
+import { useParams,useNavigate } from 'react-router-dom'
+import {useSelector,useDispatch} from "react-redux"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Button } from '@mui/material';
+import MetaData from "../layout/MetaData"
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import PersonIcon from '@mui/icons-material/Person';
+import SideBar from "./Sidebar"
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import { UPDATE_USER_RESET } from '../../constants/userConstants'
+import { getUserDetails, updateUser ,clearErrors} from '../../actions/userAction'
+import Loader from '../layout/loader/Loader'
 
-const UpdateUser = ({ history, match }) => {
-  const dispatch = useDispatch();
-  const alert = useAlert();
+const UpdateUser = () => {
 
-  const { loading, error, user } = useSelector((state) => state.userDetails);
+    const navigate=useNavigate();
+    const params=useParams();
+    const dispatch=useDispatch();
+    
 
-  const {
-    loading: updateLoading,
-    error: updateError,
-    isUpdated,
-  } = useSelector((state) => state.profile);
+    const {loading,error,user} = useSelector((state) =>state.userDetails);
+    const {loading:updateLoading,error:updateError,isUpdated} = useSelector((state) =>state.profile);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
+    const [name,setName] = useState("");
+    const [email,setEmail] = useState("");
+    const [role,setRole] = useState("");
+    const userId = params.id;
 
-  const userId = match.params.id;
 
-  useEffect(() => {
-    if (user && user._id !== userId) {
-      dispatch(userDetails(userId));
-    } else {
-      setName(user.name);
-      setEmail(user.email);
-      setRole(user.role);
+    useEffect(()=>{
+
+        if(user && user._id !== userId){
+            dispatch(getUserDetails(userId));
+            
+        }else{
+            setName(user.name);
+            setEmail(user.email);
+            setRole(user.role);
+           
+        }
+        if(error){
+            toast.error(error);
+            dispatch(clearErrors());
+        }
+
+        if(updateError){
+            toast.error(updateError);
+            dispatch(clearErrors());
+        }
+
+        if(isUpdated){
+            toast.success("User Updated Successfully");
+            setTimeout(() => navigate("/admin/users"), 4000);
+            dispatch({type:UPDATE_USER_RESET});
+        }
+    },[dispatch,toast,error,params,isUpdated,updateError,user,userId]);
+
+
+    const updateUserSubmitHandler = (e)=>{
+        e.preventDefault();
+        const myForm = new FormData();
+        myForm.set("name",name);
+        myForm.set("role",role);
+        myForm.set("email",email);
+
+       
+        dispatch(updateUser(userId,myForm));
     }
-    if (error) {
-      alert.error(error);
-      dispatch(clearErrors());
-    }
 
-    if (updateError) {
-      alert.error(updateError);
-      dispatch(clearErrors());
-    }
-
-    if (isUpdated) {
-      alert.success("User Updated Successfully!!");
-      history.push("/admin/users");
-      dispatch({ type: UPDATE_USER_RESET });
-    }
-  }, [dispatch, alert, error, history, isUpdated, updateError, user, userId]);
-
-  const updateUserSubmitHandler = (e) => {
-    e.preventDefault();
-
-    const myForm = new FormData();
-
-    myForm.set("name", name);
-    myForm.set("email", email);
-    myForm.set("role", role);
-
-    dispatch(updateUser(userId, myForm));
-  };
 
   return (
     <Fragment>
-      <MetaData title="Update User" />
-      <div className="dashboard">
-        <SideBar />
-        <div className="newProductContainer">
-          {loading ? (
-            <Loader />
-          ) : (
-            <form
-              className="createProductForm"
-              onSubmit={updateUserSubmitHandler}
-            >
-              <h1>Update User</h1>
+        <ToastContainer autoClose={3000}/>
+        <MetaData title="Update User"/>
+        <div className="dashboard">
+            <SideBar/>
+            <div className="newProductContainer">
+                {loading ? <Loader/>:
+                <form 
+                className='createProductForm'
+                onSubmit={updateUserSubmitHandler}
+                >
+                    <h1>Update User</h1>
+                    <div>
+                        <PersonIcon/>
+                        <input
+                        type="text"
+                        placeholder="Name"
+                        required
+                        value={name}
+                        onChange={(e)=> setName(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <MailOutlineIcon/>
+                        <input
+                        type="email"
+                        placeholder="email"
+                        value={email}
+                        required
+                        onChange={(e)=> setEmail(e.target.value)}
+                        />
+                    </div>
+                    
+                    <div>
+                        <VerifiedUserIcon/>
+                        <select value={role} onChange={(e)=>setRole(e.target.value)}>
+                            <option value="">Choose Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                            
+                        </select>
+                    </div>
 
-              <div>
-                <PersonIcon />
-                <input
-                  type="text"
-                  placeholder="Name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <MailOutlineIcon />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+                    
+                    
 
-              <div>
-                <VerifiedUserIcon />
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
-                  <option value="">Choose Role</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                </select>
-              </div>
-
-              <Button
-                id="createProductBtn"
-                type="submit"
-                disabled={
-                  updateLoading ? true : false || role === "" ? true : false
-                }
-              >
-                Update
-              </Button>
-            </form>
-          )}
+                    <Button
+                    id="createProductBtn"
+                    type="submit"
+                    disabled={updateLoading?true:false  || role === "" ? true:false}
+                    >
+                        Update
+                    </Button>
+                </form>}
+            </div>
         </div>
-      </div>
     </Fragment>
-  );
-};
+  )
+}
 
-export default UpdateUser;
+export default UpdateUser

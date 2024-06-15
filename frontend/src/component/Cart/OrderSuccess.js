@@ -1,20 +1,17 @@
-import React from "react";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import "./OrderSuccess.css";
-import { Typography } from "@material-ui/core";
-import { Link } from "react-router-dom";
-import Metadata from "../layout/metadata";
+import React from 'react'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import "./orderSuccess.css";
+import { Typography } from '@mui/material';
+import {Link} from "react-router-dom"
 
 const OrderSuccess = () => {
   return (
     <div className="orderSuccess">
-      <Metadata title="Success" />
-      <CheckCircleIcon />
-
-      <Typography>Your Order has been Placed successfully </Typography>
-      <Link to="/orders">View Orders</Link>
+        <CheckCircleIcon/>
+        <Typography>Your Order has been Placed successfully</Typography>
+        <Link to="/orders">View Orders</Link>
     </div>
-  );
-};
+  )
+}
 
-export default OrderSuccess;
+export default OrderSuccess
