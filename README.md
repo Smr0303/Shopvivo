@@ -1,6 +1,6 @@
-# MERN E-COMMERCE (CRABCART)
+# MERN E-COMMERCE (Shopvivo )
 
-Hi! I am Piyush Yadav and I created this E-commerce website using MERN Stack .
+Hi! I am Samarjeet Mohite and I created this E-commerce website using MERN Stack .
 
 
 # Install Dependencies

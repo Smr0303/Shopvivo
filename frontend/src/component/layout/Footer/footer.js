@@ -13,16 +13,16 @@ const Footer = () => {
         <footer>
             <div className="row">
                 <div className="col">
-                    <img src="2.png" alt="logo" className='logo' />
-                    <p>Stay Connected to CrabCart for more amazing deals. Don't miss the oportunity and grab as manny deals as possible</p>
+                    <img src="logo512.png" alt="logo" className='logo' />
+                    <p>Stay Connected to Shopvivo for more amazing deals. Don't miss the oportunity and grab as manny deals as possible</p>
                 </div>
                 <div className="col">
                     <h3>Office <div className="underline"><span></span></div></h3>
                     <p>Morena Link Road</p>
                     <p>ABV-IIITM,Gwalior</p>
                     <p>MadhyaPradesh, PIN 474015 India</p>
-                    <p className="email-id">piyushyadav11102002@gmail.com</p>
-                    <h4>+91 - 8905464493</h4>
+                    <p className="email-id">samarmohite7@gmail.com</p>
+                    <h4>+91 - 9770985945</h4>
                 </div>
                 <div className="col">
                     <h3>Links<div className="underline"><span></span></div></h3>
@@ -38,7 +38,7 @@ const Footer = () => {
                     <h3>Newletter<div className="underline"><span></span></div></h3>
                     <form action="">
                         <MailOutlineOutlinedIcon className='mailicon'/>
-                        <input type="emial" placeholder='Enter Your email id'/>
+                        <input type="email" placeholder='Enter Your email id'/>
                         <button type="submit"><ArrowForwardIcon/></button>
                     </form>
                     <div className="social-icons">
@@ -50,7 +50,7 @@ const Footer = () => {
                 </div>
             </div>
             <hr />
-            <p className="copyright">Crab-Cart © 2022 - All Rights Reserved</p>
+            <p className="copyright">Shopvivo © 2022 - All Rights Reserved</p>
         </footer>
 
     );

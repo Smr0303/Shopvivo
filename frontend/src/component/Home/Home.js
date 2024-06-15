@@ -34,10 +34,10 @@ const Home = () => {
             <ToastContainer autoClose={3000}/>
             {loading ? <Loader /> : <Fragment>
 
-                <MetaData title="CraB-CarT" />
+                <MetaData title="Shopvivo" />
 
                 <div className="banner">
-                    <p>Welcome to CrabCart </p>
+                    <p>Welcome to Shopvivo </p>
                     <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
                     <a href="#heading">

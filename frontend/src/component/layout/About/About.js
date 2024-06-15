@@ -5,7 +5,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
 const About = () => {
   const visitInstagram = () => {
-    window.location = "https://instagram.com/piyushyadav4493";
+    window.location = "https://instagram.com";
   };
   return (
     <div className="aboutSection">
@@ -18,28 +18,28 @@ const About = () => {
           <div>
             <Avatar
               style={{ width: "10vmax", height: "10vmax", margin: "2vmax 0" }}
-              src="https://avatars.githubusercontent.com/u/78140596?v=4"
+              src=""
               alt="Founder"
             />
-            <Typography>Piyush Yadav</Typography>
+            <Typography>Samarjeet Mohite</Typography>
             <Button onClick={visitInstagram} color="primary">
               Visit Instagram
             </Button>
             <span>
-              This is a sample wesbite made by @piyushyadav11102002@gmail. Only with the
+              This is a sample wesbite made by samarmohite7@gmail.com Only with the
               purpose to learn MERN Stack.
             </span>
           </div>
           <div className="aboutSectionContainer2">
             <Typography component="h2">Visit at</Typography>
             <a
-              href="https://github.com/lanslord11"
+              href="https://github.com/Smr0303"
               target="blank"
             >
               <GitHubIcon className="youtubeSvgIcon" />
             </a>
 
-            <a href="https://instagram.com/piyushyadav4493" target="blank">
+            <a href="https://instagram.com" target="blank">
               <InstagramIcon className="instagramSvgIcon" />
             </a>
           </div>
