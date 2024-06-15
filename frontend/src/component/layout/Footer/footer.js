@@ -13,7 +13,7 @@ const Footer = () => {
         <footer>
             <div className="row">
                 <div className="col">
-                    <img src="logo512.png" alt="logo" className='logo' />
+                    <img src="logo192.png" alt="logo" className='logo' />
                     <p>Stay Connected to Shopvivo for more amazing deals. Don't miss the oportunity and grab as manny deals as possible</p>
                 </div>
                 <div className="col">
