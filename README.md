@@ -9,9 +9,6 @@ This project is a responsive e-commerce platform developed to provide a comprehe
 ## Features
 - **Responsive Design**: Optimized for various devices to ensure a consistent user experience.
 - **Multi-Tiered Authorization**: Secure access control with roles such as Admin, Seller, and Customer.
-- **State Management**: Implemented Redux for centralized state management across the application.
-- **Image Management**: Integrated Cloudinary for efficient image upload, storage, and retrieval.
-- **Database**: MongoDB used for data storage, ensuring scalability and performance.
 
 ## Technologies Used
 - **Frontend**: React.js for building dynamic user interfaces.
@@ -24,8 +21,7 @@ This project is a responsive e-commerce platform developed to provide a comprehe
 ### Installation
 1. **Clone the Repository**
    ```sh
-   git clone [https://github.com/yourusername/ecommerce-platform.git](https://github.com/Smr0303/Shopvivo.git)
-   cd ecommerce-platform
+   git clone https://github.com/Smr0303/Shopvivo.git
    npm install
    
 2. Now for installing packages for frontend do
