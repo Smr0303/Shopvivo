@@ -1,5 +1,8 @@
 # Responsive E-Commerce Platform
 
+![Alt text](https://github.com/Smr0303/Shopvivo/blob/924b939c555bf1476888547179c9d82ffde12577/Desktop%20-%203.png)
+
+
 ## Overview
 This project is a responsive e-commerce platform developed to provide a comprehensive shopping experience. It features multi-tiered authorization for secure access, utilizes modern technologies for efficient development, and ensures seamless integration between frontend and backend components.
 
