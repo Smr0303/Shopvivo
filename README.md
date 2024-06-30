@@ -1,4 +1,4 @@
-# Responsive E-Commerce Platform
+# An E-Commerce Platform
 
 ![Alt text](https://github.com/Smr0303/Shopvivo/blob/924b939c555bf1476888547179c9d82ffde12577/Desktop%20-%203.png)
 
