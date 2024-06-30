@@ -1,4 +1,4 @@
-const app = require("./backend/app");
+const app = require("./backend/app.js");
 // const dotenv = require("dotenv");
 const connectDatabase = require("./backend/config/database")
 const cloudinary = require("cloudinary");
@@ -10,6 +10,8 @@ process.on("uncaughtException", (err) => {
     process.exit(1);
 })
 
+
+console.log(app);
 
 
 //config
